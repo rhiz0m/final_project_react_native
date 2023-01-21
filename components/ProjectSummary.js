@@ -10,13 +10,13 @@ import { RootScreen } from "../Styles/RootScreen";
 
 
 
-export const ProjectSummary = ({ projectsList, periodName }) => {
+export const ProjectSummary = ({ projects, periodName }) => {
 
   //Reduce() combines values of an array to multiple values
   //toFixed() outputs a number with 2 decimal places.
 
-  const projectsTotal = projectsList.reduce((sum, projectList) => {
-    return sum + projectList.amount
+  const projectsTotal = projects.reduce((sum, project) => {
+    return sum + project.amount
   }, 0);
 
   //Props for periodName and 

@@ -46,6 +46,7 @@ export const RootScreen = StyleSheet.create({
   },
   inputStyle: {
     width: "90%",
+
     padding: Spacing.small,
     border: 1,
     borderWidth: 1,

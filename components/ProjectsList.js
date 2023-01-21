@@ -8,11 +8,11 @@ const renderProjectItems = (itemData) => {
   //Check that ProjectItems props are the same as projectOutput object data for {..itemData.item} to work.
   return <ProjectItems {...itemData.item} />;
 };
-export const ProjectsList = ({ projectsList }) => {
+export const ProjectsList = ({ projects }) => {
   //Flatlist containing an array of Objects. It has data, renderItem and keyExtractor props.
   return (
     <FlatList
-      data={projectsList}
+      data={projects}
       renderItem={renderProjectItems}
       keyExtractor={(item) => item.id}
       

@@ -4,16 +4,13 @@ import { TouchableOpacity, StyleSheet, Text } from "react-native";
 import { Colors } from "../Colors";
 import { Spacing } from "../Spacing";
 
-
-export const PrimaryBtn = ({size = 160,  ...props }) => {
+export const PrimaryBtn = ({ size = 160, ...props }) => {
   return (
     <LinearGradient
       colors={[Colors.blueMedium, Colors.blueDark]}
       style={styles(size).btn}
     >
-      <TouchableOpacity  
-        onPress={props.onPress}
-      >
+      <TouchableOpacity onPress={props.onPress}>
         <Text style={styles(size).text}>{props.title}</Text>
       </TouchableOpacity>
     </LinearGradient>
@@ -28,12 +25,13 @@ const styles = (size) =>
       width: size,
       height: size / 4,
       borderRadius: Spacing.large,
-      marginVertical: Spacing.small  
+      borderWidth: 2,
+      borderColor: "black",
+      marginVertical: Spacing.small,
     },
     text: {
       color: Colors.blueDarker,
       fontWeight: "bold",
-      fontSize: size / 10
-
+      fontSize: size / 10,
     },
   });

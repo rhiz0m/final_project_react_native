@@ -24,7 +24,7 @@ export const ProjectItems = ({
   };
 
   return (
-    <View style={styles.listOutputContainer}>
+    <Pressable style={styles.listOutputContainer} onPress={projectPressHandler}>
       <View>
         <Text style={styles.title}>{`◄♦ ${task} ♦►`}</Text>
         <View style={styles.textWrapper}>
@@ -40,12 +40,7 @@ export const ProjectItems = ({
           <Text style={styles.text}>{DateFormatted(date)}</Text>
         </View>
       </View>
-      <View>
-        <View style={styles.btn}>
-          <IconEditBtn onPress={projectPressHandler} />
-        </View>
-      </View>
-    </View>
+    </Pressable>
   );
 };
 // <IconEditBtn />

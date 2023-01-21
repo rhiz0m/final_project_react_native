@@ -1,17 +1,17 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  View,
-  SafeAreaView,
-  ImageBackground,
-  StyleSheet,
-} from "react-native";
+import { View, SafeAreaView, ImageBackground, StyleSheet } from "react-native";
 import { RootScreen } from "../Styles/RootScreen";
 import { TopBar } from "../components/TopBar";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../Styles/Colors";
 import { ProjectOutput } from "../components/ProjectOutput";
+import { useContext } from "react";
+import { ProjectsContext } from "../Context_prj/ProjectsContext";
 
 export const HomeScreen = () => {
+  //Uses and importing Context for Projects
+
+  const projectsCtx = useContext(ProjectsContext);
 
   return (
     <SafeAreaView>
@@ -25,7 +25,7 @@ export const HomeScreen = () => {
           <View>
             <TopBar />
             <View>
-              <ProjectOutput projectsInfoBox={"▼ Projects ▼"} />
+              <ProjectOutput projects={projectsCtx.projects} projectsInfoBox={"▼ Projects ▼"} />
             </View>
             <StatusBar style="auto" />
           </View>

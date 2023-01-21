@@ -13,13 +13,16 @@ import { Spacing } from "../Styles/Spacing";
 import { TitleBtn } from "../Styles/Btn/TitleBtn";
 import { useLayoutEffect } from "react";
 import { SecondaryBtn } from "../Styles/Btn/SecondaryBtn";
-import { useEffect } from "react";
-import { Button } from "react-native-paper";
+import { useContext } from "react";
+import { ProjectsContext } from "../Context_prj/ProjectsContext";
+import { DateFormatted } from "../utils/DateFormatted";
 
 /* Modal add project */
 
 export const EditProjects = ({ route, navigation }) => {
   //Route prop is used to extract the id.
+
+  const projectsCtx = useContext(ProjectsContext);
 
   //Checks if params is an undefined, if it undefined we add an Id.
   const editedProjectId = route.params?.projectId;
@@ -32,17 +35,36 @@ export const EditProjects = ({ route, navigation }) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: isEditing ? "Edit Projects" : "Add Project",
+      title: isEditing ? "Update Project" : "Add Projects",
     });
   }, [navigation, isEditing]);
 
-  const CloseHandler = () => {
+  const DeleteProjectHandler = () => {
+    //Passing the Id to be deleted
+    projectsCtx.deleteProject(editedProjectId);
     navigation.goBack();
   };
-  const ConfirmHandler = () => {
+  const CancelProjectHandler = () => {
     navigation.goBack();
   };
-  const UpdateHandler = () => {
+  const ConfirmProjectHandler = () => {
+    if (isEditing) {
+      projectsCtx.updateProject(editedProjectId, {
+        task: "testing UPDATE Project",
+        description: "testing with Dummy data",
+        priority: "high",
+        date: new Date("2022-05-20"),
+        amount: 1,
+      });
+    } else {
+      projectsCtx.addProject({
+        task: "testing ADD Project",
+        description: "testing with Dummy data",
+        priority: "high",
+        date: new Date("2022-05-20"),
+        amount: 1,
+      });
+    }
     navigation.goBack();
   };
 
@@ -56,11 +78,12 @@ export const EditProjects = ({ route, navigation }) => {
           style={RootScreen.bgImage}
         >
           <View>
+            <TitleBtn onPress={CancelProjectHandler} title="Cancel" />
             <SecondaryBtn
-              onPress={ConfirmHandler}
-              title={isEditing ? "Update" : "Add"}
+              onPress={ConfirmProjectHandler}
+              title={isEditing ? "Update Project" : "Add Project"}
             ></SecondaryBtn>
-            <TitleBtn onPress={CloseHandler} title="Close" />
+            <TitleBtn onPress={DeleteProjectHandler} title="Delete" />
           </View>
         </ImageBackground>
       </LinearGradient>

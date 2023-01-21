@@ -27,11 +27,12 @@ import { Projects } from "./screens/EditProjects";
 import { Subtasks } from "./screens/DueDate";
 import { Colors } from "./Styles/Colors";
 import { RoundedBtn } from "./Styles/Btn/RoundedBtn";
-import { FontSizes } from "./Styles/FontSizes";
 import { RootScreen } from "./Styles/RootScreen";
-import { Modal } from "react-native-paper";
+import { ProjectsContext } from "./Context_prj/ProjectsContext";
+import { ProjectsContextProvider } from "./Context_prj/ProjectsContext";
 
 //Navigation: stack and bottom tabs
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -61,7 +62,7 @@ const ProjectsOverview = () => {
         name="HomeScreen"
         component={HomeScreen}
         options={{
-          title: "HomeScreen",
+          title: "Home Screen",
           tabBarLabel: "Home Screen",
           tabBarIcon: ({ color, size }) => (
             <Fontisto name="earth" size={24} color={"white"} />
@@ -102,34 +103,34 @@ export default function App() {
   return (
     <>
       <StatusBar style="auto" />
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: { backgroundColor: Colors.orangeLighter },
-          }}
-        >
-          <Stack.Screen
-            name="Project Overview"
-            component={ProjectsOverview}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Edit Projects"
-            component={EditProjects}
-            //options={{ presentation: "modal" }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <ProjectsContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerStyle: { backgroundColor: Colors.orangeLighter },
+            }}
+          >
+            <Stack.Screen
+              name="Project Overview"
+              component={ProjectsOverview}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Edit Projects"
+              component={EditProjects}
+              //options={{ presentation: "modal" }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ProjectsContextProvider>
     </>
   );
 }
 
 /*
-
-
  //Parts of Project app
 export default function App() {
-  const projectParts = 2;
+  const projectParts = 0;
 
   switch (projectParts) {
     case 0:
@@ -152,4 +153,5 @@ export default function App() {
       return App();
   }
 }
+
 */

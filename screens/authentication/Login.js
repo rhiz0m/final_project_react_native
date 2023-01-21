@@ -3,6 +3,8 @@ import { StatusBar } from "expo-status-bar";
 import { Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { FontSizes } from "../../Styles/FontSizes";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import { SignUp } from "./SignUp";
 
 import {
@@ -25,7 +27,7 @@ export const LogIn = () => {
   return (
     <SafeAreaView>
       <ImageBackground
-        source={require("../../assets/backgrounds/bgSpacewomanSm.jpeg")}
+        source={require("../../assets/backgrounds/office.jpg")}
         resizeMode="cover"
         imageStyle={{ opacity: 0.9 }}
         style={[RootScreen.bgImage, styles.container]}
@@ -42,13 +44,19 @@ export const LogIn = () => {
             <Text style={styles.titleText}>RBITAL-Prj</Text>
           </View>
           <View style={[RootScreen.wrapper, styles.logInBox]}>
-            <View style={styles.inputWrapper}>
-              <TextInput
-                style={RootScreen.inputStyle}
-                placeholder="Email"
-                placeholderTextColor={Colors.cyanDarker}
-                onChangeText={""}
-              />
+              <View style={styles.inputWrapper}>
+                <MaterialCommunityIcons
+                  name="email-box"
+                  size={24}
+                  color="black" style={{marginRight: 220}}
+                />
+                <TextInput
+                  style={RootScreen.inputStyle}
+                  placeholder="Email"
+                  placeholderTextColor={Colors.cyanDarker}
+                  onChangeText={""}
+                />
+              <Entypo name="lock" size={24} color="black" style={{marginRight: 220}}/>
               <TextInput
                 style={RootScreen.inputStyle}
                 placeholder="Password"
@@ -73,7 +81,7 @@ export const LogIn = () => {
             </View>
           </View>
           <View>
-            <Text style={{ ...styles.text, marginTop: 30 }}>
+            <Text style={{ ...styles.text, marginTop: 60 }}>
               Created by: Andreas Antonsson. STI, 2023.
             </Text>
           </View>
@@ -113,8 +121,9 @@ const styles = StyleSheet.create({
     height: 40,
   },
   titleBox: {
-    marginTop: 450,
+    marginTop: 360,
     marginRight: 150,
+    marginBottom: Spacing.small,
     flexDirection: "row",
     alignItems: "center",
   },
