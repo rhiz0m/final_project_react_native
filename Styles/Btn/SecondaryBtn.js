@@ -15,7 +15,7 @@ export const SecondaryBtn = ({ onPress, title}) => {
 const styles = StyleSheet.create({
   btn: {
     marginVertical: Spacing.medium,
-    width: 200,
+    paddingHorizontal: Spacing.medium,
     height: 50,
     backgroundColor: "white",
     alignContent: "center",

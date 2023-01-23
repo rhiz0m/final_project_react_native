@@ -20,7 +20,6 @@ import { SignUp } from "./screens/authentication/SignUp";
 
 import { TopBar } from "./components/TopBar";
 import { AddProject } from "./components/AddProject";
-import { AddSubTask } from "./components/AddSubtask";
 import { View } from "react-native";
 import { SafeAreaView, Image } from "react-native-safe-area-context";
 import { Projects } from "./screens/EditProjects";

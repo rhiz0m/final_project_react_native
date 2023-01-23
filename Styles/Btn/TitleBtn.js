@@ -23,13 +23,12 @@ const styles = () =>
     btn: {
       marginVertical: Spacing.medium,
       paddingVertical: Spacing.xsmall,
-      paddingHorizontal: Spacing.xxl,
+      paddingHorizontal: Spacing.medium,
       borderWidth: 2,
       borderColor: Colors.orangeLighter,
       color: "white",
       backgroundColor: "rgba(255, 225, 204, 0.3)",
-      width: 200,
-      height: 50
+      height: 50,
     },
     text: {
       color: "white",

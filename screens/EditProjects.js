@@ -16,6 +16,7 @@ import { SecondaryBtn } from "../Styles/Btn/SecondaryBtn";
 import { useContext } from "react";
 import { ProjectsContext } from "../Context_prj/ProjectsContext";
 import { DateFormatted } from "../utils/DateFormatted";
+import { ProjectForm } from "../components/ProjectsForm";
 
 /* Modal add project */
 
@@ -47,23 +48,11 @@ export const EditProjects = ({ route, navigation }) => {
   const CancelProjectHandler = () => {
     navigation.goBack();
   };
-  const ConfirmProjectHandler = () => {
+  const ConfirmProjectHandler = (projectsData) => {
     if (isEditing) {
-      projectsCtx.updateProject(editedProjectId, {
-        task: "testing UPDATE Project",
-        description: "testing with Dummy data",
-        priority: "high",
-        date: new Date("2022-05-20"),
-        amount: 1,
-      });
+      projectsCtx.updateProject(editedProjectId, projectsData);
     } else {
-      projectsCtx.addProject({
-        task: "testing ADD Project",
-        description: "testing with Dummy data",
-        priority: "high",
-        date: new Date("2022-05-20"),
-        amount: 1,
-      });
+      projectsCtx.addProject(projectsData);
     }
     navigation.goBack();
   };
@@ -78,11 +67,11 @@ export const EditProjects = ({ route, navigation }) => {
           style={RootScreen.bgImage}
         >
           <View>
-            <TitleBtn onPress={CancelProjectHandler} title="Cancel" />
-            <SecondaryBtn
-              onPress={ConfirmProjectHandler}
-              title={isEditing ? "Update Project" : "Add Project"}
-            ></SecondaryBtn>
+            <ProjectForm
+              submitButtonLabel={isEditing ? "Update Project" : "Add Project"}
+              onCancel={CancelProjectHandler}
+              onSubmit={ConfirmProjectHandler}
+            />
             <TitleBtn onPress={DeleteProjectHandler} title="Delete" />
           </View>
         </ImageBackground>

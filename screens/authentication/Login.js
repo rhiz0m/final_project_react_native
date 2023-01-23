@@ -93,7 +93,7 @@ export const LogIn = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
+
   logInBox: {
     borderWidth: 1,
     borderColor: Colors.pinkOrangeGray,

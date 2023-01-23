@@ -25,7 +25,10 @@ export const HomeScreen = () => {
           <View>
             <TopBar />
             <View>
-              <ProjectOutput projects={projectsCtx.projects} projectsInfoBox={"▼ Projects ▼"} />
+              <ProjectOutput 
+              fallbackText={"You have no Projects yet!"} 
+              projects={projectsCtx.projects} 
+              projectsInfoBox={"▼ Projects ▼"} />
             </View>
             <StatusBar style="auto" />
           </View>
