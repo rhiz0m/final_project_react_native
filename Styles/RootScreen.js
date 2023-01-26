@@ -18,10 +18,10 @@ export const RootScreen = StyleSheet.create({
   },
   projectSumBox: {
     backgroundColor: "black",
-    marginVertical: Spacing.small,
     padding: Spacing.small,
-    borderBottomLeftRadius: Spacing.xxl,
-    marginLeft: 310,
+    borderBottomRightRadius: Spacing.xxl,
+    height: 65,
+    width: 200,
     padding: Spacing.medium,
     marginBottom: Spacing.xl,
   },

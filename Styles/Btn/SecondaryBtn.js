@@ -2,7 +2,8 @@ import { Text, View, TouchableHighlight, StyleSheet } from "react-native"
 import { Spacing } from "../Spacing";
 import { FontSizes } from "../FontSizes";
 
-export const SecondaryBtn = ({ onPress, title}) => {
+
+export const SecondaryBtn = ({ onPress, title, style}) => {
     return (
       <View>
         <TouchableHighlight onPress={onPress} style={styles.btn}>
@@ -16,11 +17,13 @@ const styles = StyleSheet.create({
   btn: {
     marginVertical: Spacing.medium,
     paddingHorizontal: Spacing.medium,
-    height: 50,
+    maxWidth: 150,
     backgroundColor: "white",
     alignContent: "center",
     justifyContent: "center",
     paddingVertical: Spacing.xsmall,
+    BorderColor: "black",
+    borderWidth: 2,
   },
   text: {
     margin: Spacing.small,

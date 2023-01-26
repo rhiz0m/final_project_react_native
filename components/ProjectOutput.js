@@ -5,7 +5,7 @@ import { FontSizes } from "../Styles/FontSizes";
 import { Spacing } from "../Styles/Spacing";
 import { Colors } from "../Styles/Colors";
 
-export const ProjectOutput = ({ projects, projectsInfoBox, fallbackText }) => {
+export const ProjectOutput = ({ projects, prjSumBox, fallbackText }) => {
   //-- Output the projects TOTAL, the DATEs and a PROJECTS-list.
 
   let message = (
@@ -20,7 +20,9 @@ export const ProjectOutput = ({ projects, projectsInfoBox, fallbackText }) => {
 
   return (
     <View>
-      <ProjectSummary projects={projects} periodName={projectsInfoBox} />
+      <View style={{ flexDirection: "row" }}>
+        <ProjectSummary projects={projects} periodName={prjSumBox} />
+      </View>
       <View>{message}</View>
     </View>
   );
@@ -28,17 +30,19 @@ export const ProjectOutput = ({ projects, projectsInfoBox, fallbackText }) => {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 200,
     marginHorizontal: Spacing.medium,
-    borderBottomRightRadius: 20,
-    borderTopLeftRadius: 20,
-    backgroundColor: Colors.blueMediumAlhpa,
+    borderBottomRightRadius: Spacing.small,
+    borderTopLeftRadius: Spacing.small,
+    backgroundColor: "black",
     borderColor: "black",
     borderWidth: "2",
   },
   message: {
     textAlign: "center",
-    fontSize: FontSizes.large,
+    fontSize: FontSizes.medium,
+    fontWeight: "bold",
     padding: Spacing.small,
-    color: "white",
+    color: Colors.blueLightAlpha,
   },
 });

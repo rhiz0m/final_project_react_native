@@ -1,5 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { View, SafeAreaView, ImageBackground, StyleSheet } from "react-native";
+import {
+  View,
+  SafeAreaView,
+  ImageBackground,
+  StyleSheet,
+  Text,
+} from "react-native";
 import { RootScreen } from "../Styles/RootScreen";
 import { TopBar } from "../components/TopBar";
 import { LinearGradient } from "expo-linear-gradient";
@@ -17,7 +23,7 @@ export const HomeScreen = () => {
     <SafeAreaView>
       <LinearGradient colors={[Colors.orangeLight, "transparent"]}>
         <ImageBackground
-          source={require("../assets/backgrounds/bgDune.jpeg")}
+          source={require("../assets/backgrounds/bgComputer.jpeg")}
           resizeMode="cover"
           imageStyle={{ opacity: 0.2 }}
           style={RootScreen.bgImage}
@@ -25,10 +31,11 @@ export const HomeScreen = () => {
           <View>
             <TopBar />
             <View>
-              <ProjectOutput 
-              fallbackText={"You have no Projects yet!"} 
-              projects={projectsCtx.projects} 
-              projectsInfoBox={"▼ Projects ▼"} />
+              <ProjectOutput
+                fallbackText={"You have no Projects yet!"}
+                projects={projectsCtx.projects}
+                prjSumBox={"▼ Projects ▼"}
+              />
             </View>
             <StatusBar style="auto" />
           </View>

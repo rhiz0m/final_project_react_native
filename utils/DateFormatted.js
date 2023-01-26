@@ -3,6 +3,6 @@ export function DateFormatted(date) {
   return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 }
 
-export function Date7DaysAgo(date, days) {
+export function TwoWeeksAgo(date, days) {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate() - days);
 }

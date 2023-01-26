@@ -1,12 +1,11 @@
 import { createContext, useReducer } from "react";
-import { DateFormatted } from "../utils/DateFormatted";
 
 const DummyProjects = [
   {
     id: "a1",
     task: "Learn React Native",
     description: "Context, Api, Async, other, other, other...",
-    priority: "High",
+    priority: "3",
     date: new Date("2023-02-05"),
     amount: 1,
   },
@@ -14,7 +13,7 @@ const DummyProjects = [
     id: "c3",
     task: "3D Modelling with Blender",
     description: "3D Texturing, Remesh, Rigging",
-    priority: "Medium",
+    priority: "4",
     date: new Date("1980-05-22"),
     amount: 1,
   },

@@ -22,13 +22,12 @@ const styles = () =>
   StyleSheet.create({
     btn: {
       marginVertical: Spacing.medium,
-      paddingVertical: Spacing.xsmall,
       paddingHorizontal: Spacing.medium,
       borderWidth: 2,
       borderColor: Colors.orangeLighter,
       color: "white",
       backgroundColor: "rgba(255, 225, 204, 0.3)",
-      height: 50,
+   
     },
     text: {
       color: "white",

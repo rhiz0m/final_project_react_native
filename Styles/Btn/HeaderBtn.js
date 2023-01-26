@@ -4,17 +4,17 @@ import { TouchableOpacity, StyleSheet, Text, Image } from "react-native";
 import { Colors } from "../Colors";
 import { Spacing } from "../Spacing";
 
-export const RoundedBtn = ({ size = 125, ...props }) => {
+export const HeaderBtn = ({ size = 125, ...props }) => {
   return (
     <LinearGradient
       colors={[Colors.orangeLight, Colors.orangeMedium]}
       style={styles(size).container}
     >
       <TouchableOpacity onPress={props.onPress} style={styles(size).btn}>
-        <Text style={styles.text}>Add PRJ +</Text>
+        <Text style={styles.text}>Add PRJ</Text>
         <Image
           style={styles(size).btnImage}
-          source={require("../../assets/icons/orbital.png")}
+          source={require("../../assets/icons/add.png")}
         />
       </TouchableOpacity>
     </LinearGradient>

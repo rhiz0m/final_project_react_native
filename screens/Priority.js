@@ -6,28 +6,40 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../Styles/Colors";
 import { Spacing } from "../Styles/Spacing";
 import { ProjectOutput } from "../components/ProjectOutput";
-
+import { useContext } from "react";
+import { ProjectsContext } from "../Context_prj/ProjectsContext";
 
 /* Modal add project */
 
-export const Priority = () => (
-  <SafeAreaView>
-    <LinearGradient colors={[Colors.orangeLight, "transparent"]}>
-      <ImageBackground
-        source={require("../assets/backgrounds/bgSpacewoman6.jpeg")}
-        resizeMode="cover"
-        imageStyle={{ opacity: 0.2 }}
-        style={RootScreen.bgImage}
-      >
-        <View style={RootScreen.listOutputContainer}>
-          <TopBar />
-          <ProjectOutput projectsInfoBox={"▼ Priority ▼"} />
-        </View>
-        <StatusBar style="auto" />
-      </ImageBackground>
-    </LinearGradient>
-  </SafeAreaView>
-);
+export const Priority = () => {
+  const projectsCtx = useContext(ProjectsContext);
+
+  const projectsPriority = projectsCtx.projects.sort((a, b) => {
+    return a.priority < b.priority;
+  });
+
+  return (
+    <SafeAreaView>
+      <LinearGradient colors={[Colors.orangeLight, "transparent"]}>
+        <ImageBackground
+          source={require("../assets/backgrounds/bgPlanning2.jpeg")}
+          resizeMode="cover"
+          imageStyle={{ opacity: 0.2 }}
+          style={RootScreen.bgImage}
+        >
+          <View style={RootScreen.listOutputContainer}>
+            <TopBar />
+            <ProjectOutput
+              projects={projectsPriority}
+              prjSumBox={"▼ Priority ▼"}
+            />
+          </View>
+          <StatusBar style="auto" />
+        </ImageBackground>
+      </LinearGradient>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   listContainer: {

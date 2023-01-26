@@ -5,8 +5,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { FontSizes } from "../../Styles/FontSizes";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
-import { SignUp } from "./SignUp";
-
+import { ProjectInput } from "../../components/ProjectInput";
+import { TitleBtn } from "../../Styles/Btn/TitleBtn";
 import {
   Text,
   TextInput,
@@ -18,12 +18,11 @@ import {
 } from "react-native";
 
 import { RootScreen } from "../../Styles/RootScreen";
-import { PrimaryBtn } from "../../Styles/Btn/PrimaryBtn"
+import { PrimaryBtn } from "../../Styles/Btn/PrimaryBtn";
 import { Colors } from "../../Styles/Colors";
 import { Spacing } from "../../Styles/Spacing";
 
 export const LogIn = () => {
- 
   return (
     <SafeAreaView>
       <ImageBackground
@@ -36,54 +35,52 @@ export const LogIn = () => {
           colors={[Colors.orangelightAlpha, "transparent"]}
           style={[RootScreen.bgImage, RootScreen.container]}
         >
-          <View style={styles.titleBox}>
-            <Image
-              style={styles.iconImage}
-              source={require("../../assets/icons/orbital.png")}
-            />
-            <Text style={styles.titleText}>RBITAL-Prj</Text>
-          </View>
           <View style={[RootScreen.wrapper, styles.logInBox]}>
-              <View style={styles.inputWrapper}>
-                <MaterialCommunityIcons
-                  name="email-box"
-                  size={24}
-                  color="black" style={{marginRight: 220}}
-                />
-                <TextInput
-                  style={RootScreen.inputStyle}
-                  placeholder="Email"
-                  placeholderTextColor={Colors.cyanDarker}
-                  onChangeText={""}
-                />
-              <Entypo name="lock" size={24} color="black" style={{marginRight: 220}}/>
-              <TextInput
-                style={RootScreen.inputStyle}
-                placeholder="Password"
-                placeholderTextColor={Colors.cyanDarker}
-                onChangeText={""}
-              />
-            </View>
-            <View style={RootScreen.wrapper}>
-              <PrimaryBtn title="LogIn" onPress={""} />
-            </View>
+            <ProjectInput
+              labelText={"Email"}
+              textInputConfig={styles.inputWrapper}
+            />
+
+            <ProjectInput
+              labelText={"Password"}
+              textInputConfig={{ ...styles.inputWrapper, color: "black" }}
+            />
             <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-              }}
+              style={{ ...styles.btnsContainer, marginLeft: Spacing.xsmall }}
             >
-              <View style={styles.subBox}>
-                <TouchableOpacity>
-                  <Text style={RootScreen.paragraph}>Sign Up</Text>
-                </TouchableOpacity>
-              </View>
+              <PrimaryBtn onPress={""} title={"Login"} />
             </View>
+            <TouchableOpacity style={styles.subBox}>
+              <Text
+                style={{
+                  ...styles.title,
+                  fontSize: FontSizes.medium,
+                  letterSpacing: Spacing.small,
+                }}
+              >
+                Sign Up
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.titleBox}>
+            <Text style={styles.title}>{`♦CapyPlanner♦`} </Text>
           </View>
           <View>
-            <Text style={{ ...styles.text, marginTop: 60 }}>
-              Created by: Andreas Antonsson. STI, 2023.
+            <Text style={{ ...styles.text, marginTop: Spacing.small }}>
+              Created by: Andreas Antonsson. STI, 2023
             </Text>
+          </View>
+          <View>
+            <Image
+              style={styles.iconImage}
+              source={require("../../assets/icons/reactNative.png")}
+            />
+          </View>
+          <View style={styles.imgContainer}>
+            <Image
+              style={styles.img}
+              source={require("../../assets/pictures/Capy_.png")}
+            />
           </View>
         </LinearGradient>
       </ImageBackground>
@@ -93,8 +90,10 @@ export const LogIn = () => {
 };
 
 const styles = StyleSheet.create({
-
   logInBox: {
+    marginTop: 220,
+    marginBottom: Spacing.medium,
+    paddingTop: Spacing.medium,
     borderWidth: 1,
     borderColor: Colors.pinkOrangeGray,
     borderRadius: Spacing.medium,
@@ -102,40 +101,48 @@ const styles = StyleSheet.create({
   },
   inputWrapper: {
     marginTop: Spacing.medium,
-    width: 320,
+    width: 280,
     alignItems: "center",
     justifyContent: "center",
   },
   subBox: {
     marginTop: Spacing.medium,
     width: "100%",
+    height: 40,
     flexDirection: "row",
     justifyContent: "space-evenly",
     backgroundColor: Colors.blackAlpha,
     borderRadius: Spacing.medium,
+    alignItems: "center",
+  },
+  title: {
+    fontSize: FontSizes.large,
+    textAlign: "center",
+    color: Colors.orangeLighter,
+    letterSpacing: Spacing.medium,
+    marginLeft: Spacing.small,
   },
   iconImage: {
-    backgroundColor: Colors.orangeLighter,
-    borderRadius: Spacing.large,
-    width: 40,
-    height: 40,
+    marginTop: 30,
+    marginRight: 320,
+    width: 50,
+    height: 50,
   },
   titleBox: {
-    marginTop: 360,
-    marginRight: 150,
     marginBottom: Spacing.small,
     flexDirection: "row",
     alignItems: "center",
   },
-  titleText: {
-    fontSize: FontSizes.large,
-    textAlign: "center",
-    color: Colors.orangeLighter,
-    letterSpacing: Spacing.small,
-    marginLeft: Spacing.small,
-  },
   text: {
     color: "white",
-    marginVertical: Spacing.medium,
+  },
+  imgContainer: {
+    alignItems: "center",
+  },
+  img: {
+    marginTop: -Spacing.small,
+    justifyContent: "center",
+    width: 350,
+    height: 200,
   },
 });

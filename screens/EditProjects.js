@@ -1,7 +1,6 @@
 import {
-  View,
+  View, Image,
   SafeAreaView,
-  Text,
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
@@ -10,12 +9,10 @@ import { RootScreen } from "../Styles/RootScreen";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../Styles/Colors";
 import { Spacing } from "../Styles/Spacing";
-import { TitleBtn } from "../Styles/Btn/TitleBtn";
 import { useLayoutEffect } from "react";
-import { SecondaryBtn } from "../Styles/Btn/SecondaryBtn";
 import { useContext } from "react";
 import { ProjectsContext } from "../Context_prj/ProjectsContext";
-import { DateFormatted } from "../utils/DateFormatted";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { ProjectForm } from "../components/ProjectsForm";
 
 /* Modal add project */
@@ -40,6 +37,11 @@ export const EditProjects = ({ route, navigation }) => {
     });
   }, [navigation, isEditing]);
 
+  //If the Id we are currently looking at is the same as the editedProjectId, that is the project we want to edit.
+  const selectedProject = projectsCtx.projects.find(
+    (project) => project.id === editedProjectId
+  );
+
   const DeleteProjectHandler = () => {
     //Passing the Id to be deleted
     projectsCtx.deleteProject(editedProjectId);
@@ -61,9 +63,9 @@ export const EditProjects = ({ route, navigation }) => {
     <SafeAreaView>
       <LinearGradient colors={[Colors.orangeLight, "transparent"]}>
         <ImageBackground
-          source={require("../assets/backgrounds/bgSpacewoman6.jpeg")}
+          source={require("../assets/backgrounds/bgPlanning3.jpeg")}
           resizeMode="cover"
-          imageStyle={{ opacity: 0.5 }}
+          imageStyle={{ opacity: 0.4 }}
           style={RootScreen.bgImage}
         >
           <View>
@@ -71,8 +73,28 @@ export const EditProjects = ({ route, navigation }) => {
               submitButtonLabel={isEditing ? "Update Project" : "Add Project"}
               onCancel={CancelProjectHandler}
               onSubmit={ConfirmProjectHandler}
+              defaultValues={selectedProject}
             />
-            <TitleBtn onPress={DeleteProjectHandler} title="Delete" />
+
+            <View style={styles.deleteBtnContainer}>
+              <TouchableOpacity
+                style={styles.deleteBtn}
+                onPress={DeleteProjectHandler}
+              >
+                <MaterialCommunityIcons
+                  name="delete-variant"
+                  size={32}
+                  color={Colors.orangeLighter}
+                  onPress={DeleteProjectHandler}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.imgContainer}>
+            <Image
+              style={styles.img}
+              source={require("../assets/pictures/Capy_.png")}
+            />
           </View>
         </ImageBackground>
       </LinearGradient>
@@ -93,4 +115,27 @@ const styles = StyleSheet.create({
     color: "white",
     backgroundColor: "rgba(255, 225, 204, 0.3)",
   },
+  deleteBtnContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  deleteBtn: {
+    marginTop: Spacing.medium,
+    alignItems: "center",
+    justifyContent: "center",
+    height: 70,
+    width: 70,
+    backgroundColor: "black",
+    borderRadius: Spacing.xxxl
+  },
+  imgContainer: {
+    alignItems: "center"
+  },
+
+  img: {
+    marginTop: 80,
+    justifyContent: "center",
+    width: 250,
+    height: 140
+  }
 });

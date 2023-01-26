@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, Pressable, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  ImageBackground,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { FontSizes } from "../Styles/FontSizes";
 import { Spacing } from "../Styles/Spacing";
@@ -6,6 +12,7 @@ import { DateFormatted } from "../utils/DateFormatted";
 import { useNavigation } from "@react-navigation/native";
 import { IconEditBtn } from "../Styles/Btn/IconBtn";
 import { Colors } from "../Styles/Colors";
+import { FontAwesome } from "@expo/vector-icons";
 
 export const ProjectItems = ({
   id,
@@ -13,6 +20,7 @@ export const ProjectItems = ({
   description,
   priority,
   date,
+  issueData,
   amount,
 }) => {
   //Object Destructuring in parameter
@@ -24,15 +32,25 @@ export const ProjectItems = ({
   };
 
   return (
-    <Pressable style={styles.listOutputContainer} onPress={projectPressHandler}>
+    <View style={styles.listOutputContainer}>
       <View>
-        <Text style={styles.title}>{`◄♦ ${task} ♦►`}</Text>
+        <View style={styles.btnRowsStyle}>
+          <Text style={styles.title}>{`◄♦ ${task} ♦►`}</Text>
+          <View style={styles.IconEditBtn}>
+            <FontAwesome
+              name="edit"
+              size={24}
+              color={Colors.orangeLighter}
+              onPress={projectPressHandler}
+            />
+          </View>
+        </View>
         <View style={styles.textWrapper}>
           <Text style={styles.subTitle}>► Description:</Text>
           <Text style={styles.text}>{description}</Text>
         </View>
         <View style={styles.textWrapper}>
-          <Text style={styles.subTitle}>► priority:</Text>
+          <Text style={styles.subTitle}>► Priority:</Text>
           <Text style={styles.text}>{priority}</Text>
         </View>
         <View style={styles.textWrapper}>
@@ -40,7 +58,7 @@ export const ProjectItems = ({
           <Text style={styles.text}>{DateFormatted(date)}</Text>
         </View>
       </View>
-    </Pressable>
+    </View>
   );
 };
 // <IconEditBtn />
@@ -48,9 +66,10 @@ const styles = StyleSheet.create({
   listOutputContainer: {
     flexDirection: "row",
     justifyContent: "space-evenly",
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
-    padding: Spacing.small,
-    margin: Spacing.medium,
+    backgroundColor: "white",
+    paddingBottom: Spacing.medium,
+    marginHorizontal: Spacing.medium,
+    margin: Spacing.large,
     borderWidth: 3,
     borderRadius: Spacing.medium,
     elevation: 4,
@@ -67,6 +86,7 @@ const styles = StyleSheet.create({
     padding: Spacing.small,
     fontSize: FontSizes.medium,
     maxWidth: 240,
+    minWidth: 200,
     fontWeight: "bold",
     textAlign: "center",
   },
@@ -75,15 +95,28 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     maxWidth: 260,
   },
+  btnRowsStyle: {
+    flexDirection: "row",
+    backgroundColor: "#F7EBEB",
+    borderBottomRightRadius: Spacing.large,
+  },
   subTitle: {
+    padding: Spacing.small,
     fontWeight: "bold",
     marginRight: Spacing.small,
     marginVertical: Spacing.xsmall,
-    width: 100,
+    width: 120,
   },
   text: {
+    padding: Spacing.small,
+    borderWidth: 1,
+    borderColor: "#E3CACA",
+    marginVertical: Spacing.xsmall,
     textAlign: "left",
     fontStyle: "italic",
+    color: Colors.blueDarker,
+    backgroundColor: "#F7EBEB",
+    width: 170,
   },
   btn: {
     marginTop: -Spacing.large,
@@ -92,6 +125,17 @@ const styles = StyleSheet.create({
     borderColor: Colors.blueDarker,
     padding: Spacing.small,
     width: 50,
+  },
+  IconEditBtn: {
+    width: 50,
+    height: 50,
+    padding: Spacing.small,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: -Spacing.large,
+    marginLeft: Spacing.xxxl,
+    backgroundColor: "black",
+    borderRadius: Spacing.large,
   },
 });
 

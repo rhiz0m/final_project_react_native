@@ -12,20 +12,16 @@ export const TopBar = () => {
     <View style={styles.menuWrapper}>
       <ImageBackground
         source={require("../assets/backgrounds/bgMinimalism.jpeg")}
-        style={{ ...RootScreen.bgImage, height: 85 }}
+        style={{ ...RootScreen.bgImage, height: 80 }}
       >
-        <View style={styles.menuLinks}>
+        <View style={styles.logoutBtn}>
+          <PrimaryBtn style={styles.menuLinks} title="Log out" size={128} />
           <View style={styles.imageContainer}>
-            <TouchableOpacity
-              onPress={() => {}}
-            >
-              <Image
-                style={styles.iconImage}
-                source={require("../assets/icons/orbital.png")}
-              />
-            </TouchableOpacity>
+            <Image
+              style={styles.img}
+              source={require("../assets/pictures/CapyFace.png")}
+            />
           </View>
-          <PrimaryBtn style={styles.menuLinks} title="Log out" size={125} />
         </View>
       </ImageBackground>
     </View>
@@ -41,21 +37,27 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     backgroundColor: Colors.cyanDark,
   },
-  menuLinks: {
+  logoutBtn: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: Spacing.medium,
     marginVertical: Spacing.medium,
-    alignItems: "center"
   },
-  iconImage: {
-    width: 40,
-    height: 40,
+  img: {
+    marginTop: 0,
+    width: 120,
+    height: 80,
     
   },
   imageContainer: {
-    padding: Spacing.xsmall,
+    paddingHorizontal: Spacing.small,
+    paddingVertical: Spacing.xsmall,
     backgroundColor: "white",
-    borderRadius: Spacing.small
+    borderRadius: Spacing.small,
+    elevation: 4,
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 5,
+    shadowRadius: 4,
   }
 });

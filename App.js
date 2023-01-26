@@ -10,6 +10,7 @@ import { Fontisto } from "@expo/vector-icons";
 
 import { HomeScreen } from "./screens/HomeScreen";
 import { DueDate } from "./screens/DueDate";
+import { ProjectForm } from "./components/ProjectsForm";
 import { EditProjects } from "./screens/EditProjects";
 import { Priority } from "./screens/Priority";
 
@@ -25,13 +26,13 @@ import { SafeAreaView, Image } from "react-native-safe-area-context";
 import { Projects } from "./screens/EditProjects";
 import { Subtasks } from "./screens/DueDate";
 import { Colors } from "./Styles/Colors";
-import { RoundedBtn } from "./Styles/Btn/RoundedBtn";
+import { HeaderBtn } from "./Styles/Btn/HeaderBtn";
 import { RootScreen } from "./Styles/RootScreen";
 import { ProjectsContext } from "./Context_prj/ProjectsContext";
 import { ProjectsContextProvider } from "./Context_prj/ProjectsContext";
 
 //Navigation: stack and bottom tabs
-
+/*
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -47,7 +48,7 @@ const ProjectsOverview = () => {
         tabBarInactiveBackgroundColor: "black",
         tabBarLabelStyle: { fontSize: 12 },
         headerRight: () => (
-          <RoundedBtn
+          <HeaderBtn
             title="+"
             style={RootScreen.wrapper}
             onPress={() => {
@@ -126,7 +127,7 @@ export default function App() {
   );
 }
 
-/*
+*/
  //Parts of Project app
 export default function App() {
   const projectParts = 0;
@@ -143,7 +144,7 @@ export default function App() {
     case 4:
       return DueDate();
     case 5:
-      return AddProject();
+      return ProjectForm();
     case 6:
       return AddSubTask();
     case 7:
@@ -152,5 +153,3 @@ export default function App() {
       return App();
   }
 }
-
-*/

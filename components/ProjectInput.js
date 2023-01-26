@@ -2,7 +2,6 @@ import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Spacing } from "../Styles/Spacing";
 import { Colors } from "../Styles/Colors";
 import { FontSizes } from "../Styles/FontSizes";
-import { RootScreen } from "../Styles/RootScreen";
 
 export const ProjectInput = ({ labelText, textInputConfig }) => {
   //TextInputConfig. Spreading and merging all textInputConfig into one object
@@ -14,8 +13,10 @@ export const ProjectInput = ({ labelText, textInputConfig }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.titles}>{labelText}</Text>
+    <View>
+      <View style={styles.titelBox}>
+        <Text style={styles.titles}>{labelText}</Text>
+      </View>
       <View>
         <TextInput style={inputStyle} {...textInputConfig} />
       </View>
@@ -24,26 +25,32 @@ export const ProjectInput = ({ labelText, textInputConfig }) => {
 };
 
 const styles = StyleSheet.create({
-  btnContainer: {
-    margin: Spacing.medium,
-    justifyContent: "space-evenly",
-    flexDirection: "row",
-  },
   input: {
+    paddingLeft: Spacing.medium,
     borderRadius: Spacing.medium,
+    borderWidth: 1,
+    borderColor: "black",
     backgroundColor: Colors.orangeLighter,
     height: 40,
-    marginHorizontal: Spacing.medium,
+    minWidth: 150,
+    marginHorizontal: Spacing.large,
     marginVertical: Spacing.small,
+  },
+  titelBox: {
+    borderBottomRightRadius: Spacing.medium,
+    borderTopLeftRadius: Spacing.medium,
+    padding: Spacing.small,
+    backgroundColor: Colors.blackAlpha,
+    width: 130,
+    marginLeft: Spacing.large,
   },
   titles: {
     alignItems: "center",
     justifyContent: "center",
-    margin: Spacing.small,
     fontSize: FontSizes.medium,
     fontWeight: "bold",
     textAlign: "center",
-    color: Colors.orangeLighter,
+    color: Colors.blueMediumAlhpa,
   },
   inputMultiline: {
     height: 100,

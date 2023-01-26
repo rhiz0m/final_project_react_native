@@ -8,7 +8,7 @@ import { Spacing } from "../Styles/Spacing";
 import { ProjectOutput } from "../components/ProjectOutput";
 import { useContext } from "react";
 import { ProjectsContext } from "../Context_prj/ProjectsContext";
-import { Date7DaysAgo } from "../utils/DateFormatted";
+import { TwoWeeksAgo } from "../utils/DateFormatted";
 
 /* Modal add project */
 
@@ -17,25 +17,22 @@ export const DueDate = () => {
 
   const projectsDate = projectsCtx.projects.filter((project) => {
     const today = new Date();
-    const date7DaysAgo = Date7DaysAgo(today, 7);
-    return project.date > date7DaysAgo;
+    const twoWeeksAgo = TwoWeeksAgo(today, 14);
+    return project.date > twoWeeksAgo;
   });
 
   return (
     <SafeAreaView>
       <LinearGradient colors={[Colors.orangeLight, "transparent"]}>
         <ImageBackground
-          source={require("../assets/backgrounds/bgDune2.jpeg")}
+          source={require("../assets/backgrounds/bgPlanning.jpeg")}
           resizeMode="cover"
           imageStyle={{ opacity: 0.2 }}
           style={RootScreen.bgImage}
         >
           <View style={RootScreen.listOutputContainer}>
             <TopBar />
-            <ProjectOutput
-              projects={projectsDate}
-              projectsInfoBox={"▼ Date ▼"}
-            />
+            <ProjectOutput projects={projectsDate} prjSumBox={"▼ Date ▼"} />
           </View>
           <StatusBar style="auto" />
         </ImageBackground>

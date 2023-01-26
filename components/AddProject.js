@@ -17,7 +17,7 @@ import {
   SelectList,
 } from "react-native-dropdown-select-list";
 import { PrimaryBtn } from "../Styles/Btn/PrimaryBtn";
-import { RoundedBtn } from "../Styles/Btn/RoundedBtn";
+import { RoundedBtn } from "../Styles/Btn/HeaderBtn";
 
 export const AddProject = (props) => {
   const [enteredText, setEnteredText] = useState("");

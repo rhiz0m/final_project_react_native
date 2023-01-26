@@ -1,21 +1,23 @@
-import { View, StyleSheet, Text } from "react-native";
-import { RootScreen } from "../Styles/RootScreen";
+import { View, StyleSheet, Image, Alert, ImageBackground } from "react-native";
 import { ProjectInput } from "./ProjectInput";
 import { Spacing } from "../Styles/Spacing";
-import { Colors } from "../Styles/Colors";
 import { useState } from "react";
-import { SelectList } from "react-native-dropdown-select-list";
 import { TitleBtn } from "../Styles/Btn/TitleBtn";
-import { SecondaryBtn } from "../Styles/Btn/SecondaryBtn";
+import { PrimaryBtn } from "../Styles/Btn/PrimaryBtn";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
-export const ProjectForm = ({ onCancel, onSubmit, submitButtonLabel }) => {
+export const ProjectForm = ({
+  onCancel,
+  onSubmit,
+  submitButtonLabel,
+  defaultValues,
+}) => {
   //Generic way of handling different inputs
   const [inputValues, SetInputValues] = useState({
-    task: "",
-    description: "",
-    priority: "",
-    date: "",
-    issueData: ""
+    task: defaultValues ? defaultValues.task : "",
+    description: defaultValues ? defaultValues.description : "",
+    priority: defaultValues ? defaultValues.priority.toString() : "",
+    date: defaultValues ? defaultValues.date.toISOString().slice(0, 10) : "",
   });
 
   const submitProjectHandler = () => {
@@ -24,17 +26,25 @@ export const ProjectForm = ({ onCancel, onSubmit, submitButtonLabel }) => {
       description: inputValues.description,
       priority: inputValues.priority,
       date: new Date(inputValues.date),
-      amount: 1
+      amount: 1,
+    };
+
+    //Textinput Validation
+
+    const checkIfValidTask = projectData.task.trim().length > 0;
+    const checkIfValidDescription = projectData.description.trim().length > 0;
+    const checkIfValidDate = projectData.date.toString() !== "Invalid Date";
+    const checkIfValidPrior = !isNaN(projectData.priority) && projectData.priority > 0 && projectData.priority < 6;
+
+    if (
+      !checkIfValidTask || !checkIfValidDescription || !checkIfValidPrior || !checkIfValidDate
+    ) {
+      //Show user invalid feedback
+      Alert.alert("Invalid input, check your input values again!");
+      return;
     }
     onSubmit(projectData);
   };
-
-  const [selected, setSelected] = useState("");
-  const issueData = [
-    { key: "1", value: "Fix Bugs" },
-    { key: "2", value: "Build Feature" },
-    { key: "3", value: "Other" },
-  ];
 
   //inputIdentifier = task, description, priority, date. Target and dynamicaly set property names.
   const InputChangedHandler = (inputIdentifier, enteredValue) => {
@@ -44,7 +54,14 @@ export const ProjectForm = ({ onCancel, onSubmit, submitButtonLabel }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      style={styles.container}
+      source={require("../assets/backgrounds/bgMinimalism.jpeg")}
+      resizeMode="cover"
+      borderRadius={Spacing.large}
+      borderWidth={2}
+      borderColor={"white"}
+    >
       <ProjectInput
         labelText={"Task"}
         textInputConfig={{
@@ -52,7 +69,6 @@ export const ProjectForm = ({ onCancel, onSubmit, submitButtonLabel }) => {
           onChangeText: InputChangedHandler.bind(this, "task"),
         }}
       />
-
       <ProjectInput
         labelText={"Description"}
         textInputConfig={{
@@ -61,61 +77,51 @@ export const ProjectForm = ({ onCancel, onSubmit, submitButtonLabel }) => {
           onChangeText: InputChangedHandler.bind(this, "description"),
         }}
       />
-
-      <ProjectInput
-        labelText={"Date"}
-        textInputConfig={{
-          placeholder: "YYYY-MM-DD",
-          maxLength: 10,
-          value: inputValues.date,
-          onChangeText: InputChangedHandler.bind(this, "date"),
-        }}
-      />
-      <ProjectInput
-        labelText={"Priority"}
-        textInputConfig={{
-          value: inputValues.priority,
-          onChangeText: InputChangedHandler.bind(this, "priority"),
-        }}
-      />
-
-      <SelectList
-        boxStyles={{
-          borderRadius: 0,
-          backgroundColor: Colors.cyanLight,
-          marginTop: Spacing.small,
-          width: 220,
-        }}
-        placeholder="Select task"
-        setSelected={(value) => setSelected(value)}
-        data={issueData}
-        save="value"
-        dropdownStyles={{
-          maxHeight: 120,
-          backgroundColor: Colors.cyanLight,
-        }}
-      />
       <View style={styles.btnsContainer}>
-        <TitleBtn onPress={onCancel} title="Cancel" />
-        <SecondaryBtn
-          onPress={submitProjectHandler}
-          title={submitButtonLabel}
-        ></SecondaryBtn>
+        <ProjectInput
+          labelText={"Priority"}
+          textInputConfig={{
+            placeholder: "Range: 1 to 5",
+            placeholderTextColor: "black",
+            value: inputValues.priority,
+            onChangeText: InputChangedHandler.bind(this, "priority"),
+          }}
+        />
+        <ProjectInput
+          labelText={"Date"}
+          textInputConfig={{
+            placeholder: "YYYY-MM-DD",
+            placeholderTextColor: "black",
+            maxLength: 10,
+            value: inputValues.date,
+            onChangeText: InputChangedHandler.bind(this, "date"),
+          }}
+        />
       </View>
-    </View>
+      <View style={{ ...styles.btnsContainer, marginLeft: Spacing.xsmall }}>
+        <PrimaryBtn onPress={submitProjectHandler} title={submitButtonLabel} />
+        <TitleBtn onPress={onCancel} title="Cancel" />
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
-    borderColor: Colors.pinkOrangeGray,
-    borderRadius: Spacing.medium,
-    backgroundColor: "rgba(255, 225, 204, 0.3)",
+    marginTop: 50,
+    borderRadius: Spacing.large,
+    backgroundColor: "rgba(255, 225, 204, 0.6)",
     marginHorizontal: Spacing.medium,
+    paddingVertical: Spacing.medium,
   },
   btnsContainer: {
+    marginVertical: Spacing.xsmall,
+    marginHorizontal: Spacing.medium,
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  btnRows: {
+    minWidth: 200,
   },
 });
