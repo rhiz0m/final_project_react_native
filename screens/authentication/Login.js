@@ -24,7 +24,7 @@ import { Spacing } from "../../Styles/Spacing";
 
 export const LogIn = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={RootScreen.container}>
       <ImageBackground
         source={require("../../assets/backgrounds/office.jpg")}
         resizeMode="cover"
