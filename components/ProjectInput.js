@@ -3,7 +3,7 @@ import { Spacing } from "../Styles/Spacing";
 import { Colors } from "../Styles/Colors";
 import { FontSizes } from "../Styles/FontSizes";
 
-export const ProjectInput = ({ labelText, textInputConfig }) => {
+export const ProjectInput = ({ labelText, inValid, textInputConfig }) => {
   //TextInputConfig. Spreading and merging all textInputConfig into one object
   
   const inputStyle = [styles.input]
@@ -11,11 +11,14 @@ export const ProjectInput = ({ labelText, textInputConfig }) => {
   if (textInputConfig && textInputConfig.multiline) {
     inputStyle.push(styles.inputMultiline);
   }
+  if(inValid) {
+    inputStyle.push(styles.inValidInput)
+  }
 
   return (
     <View>
       <View style={styles.titelBox}>
-        <Text style={styles.titles}>{labelText}</Text>
+        <Text style={[styles.titles, inValid && styles.invalidLabel]}>{labelText}</Text>
       </View>
       <View>
         <TextInput style={inputStyle} {...textInputConfig} />
@@ -54,5 +57,13 @@ const styles = StyleSheet.create({
   },
   inputMultiline: {
     height: 100,
+  },
+  inValidInput: {
+    borderColor: "#FFD2E4",
+    borderWidth: "2",
+    backgroundColor: "#F3699F",
+  },
+  invalidLabel: {
+    color: "#F3699F",
   },
 });

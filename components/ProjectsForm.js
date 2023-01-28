@@ -1,10 +1,10 @@
-import { View, StyleSheet, Image, Alert, ImageBackground } from "react-native";
+import { View, StyleSheet, Text, ImageBackground } from "react-native";
 import { ProjectInput } from "./ProjectInput";
 import { Spacing } from "../Styles/Spacing";
 import { useState } from "react";
 import { TitleBtn } from "../Styles/Btn/TitleBtn";
 import { PrimaryBtn } from "../Styles/Btn/PrimaryBtn";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+
 
 export const ProjectForm = ({
   onCancel,
@@ -13,19 +13,31 @@ export const ProjectForm = ({
   defaultValues,
 }) => {
   //Generic way of handling different inputs
-  const [inputValues, SetInputValues] = useState({
-    task: defaultValues ? defaultValues.task : "",
-    description: defaultValues ? defaultValues.description : "",
-    priority: defaultValues ? defaultValues.priority.toString() : "",
-    date: defaultValues ? defaultValues.date.toISOString().slice(0, 10) : "",
+  const [inputs, SetInputs] = useState({
+    task: {
+      value: defaultValues ? defaultValues.task : "",
+      isValid: true,
+    },
+    description: {
+      value: defaultValues ? defaultValues.description : "",
+      isValid: true,
+    },
+    priority: {
+      value: defaultValues ? defaultValues.priority.toString() : "",
+      isValid: true,
+    },
+    date: {
+      value: defaultValues ? defaultValues.date.toISOString().slice(0, 10) : "",
+      isValid: true,
+    },
   });
 
   const submitProjectHandler = () => {
     const projectData = {
-      task: inputValues.task,
-      description: inputValues.description,
-      priority: inputValues.priority,
-      date: new Date(inputValues.date),
+      task: inputs.task.value,
+      description: inputs.description.value,
+      priority: inputs.priority.value,
+      date: new Date(inputs.date.value),
       amount: 1,
     };
 
@@ -34,24 +46,54 @@ export const ProjectForm = ({
     const checkIfValidTask = projectData.task.trim().length > 0;
     const checkIfValidDescription = projectData.description.trim().length > 0;
     const checkIfValidDate = projectData.date.toString() !== "Invalid Date";
-    const checkIfValidPrior = !isNaN(projectData.priority) && projectData.priority > 0 && projectData.priority < 6;
+    const checkIfValidPriority =
+      !isNaN(projectData.priority) &&
+      projectData.priority > 0 &&
+      projectData.priority < 6;
 
     if (
-      !checkIfValidTask || !checkIfValidDescription || !checkIfValidPrior || !checkIfValidDate
+      !checkIfValidTask ||
+      !checkIfValidDescription ||
+      !checkIfValidPriority ||
+      !checkIfValidDate
     ) {
+
       //Show user invalid feedback
-      Alert.alert("Invalid input, check your input values again!");
-      return;
+      SetInputs((currentInputs) => {
+        return {
+          task: { value: currentInputs.task.value, isValid: checkIfValidTask },
+          description: {
+            value: currentInputs.description.value,
+            isValid: checkIfValidDescription,
+          },
+          priority: {
+            value: currentInputs.priority.value,
+            isValid: checkIfValidPriority,
+          },
+          date: { value: currentInputs.date.value, isValid: checkIfValidDate },
+        };
+       
+      });
+       return;
     }
     onSubmit(projectData);
   };
 
   //inputIdentifier = task, description, priority, date. Target and dynamicaly set property names.
   const InputChangedHandler = (inputIdentifier, enteredValue) => {
-    SetInputValues((currentInputValues) => {
-      return { ...currentInputValues, [inputIdentifier]: enteredValue };
+    SetInputs((currentInputs) => {
+      return {
+        ...currentInputs,
+        [inputIdentifier]: { value: enteredValue, isValid: true },
+      };
     });
   };
+
+  const InvalidForm =
+    !inputs.task.isValid ||
+    !inputs.description.isValid ||
+    !inputs.priority.isValid ||
+    !inputs.date.isValid;
 
   return (
     <ImageBackground
@@ -63,41 +105,52 @@ export const ProjectForm = ({
       borderColor={"white"}
     >
       <ProjectInput
+        inValid={!inputs.task.isValid}
         labelText={"Task"}
         textInputConfig={{
-          value: inputValues.task,
+          value: inputs.task.value,
           onChangeText: InputChangedHandler.bind(this, "task"),
         }}
       />
       <ProjectInput
+        inValid={!inputs.description.isValid}
         labelText={"Description"}
         textInputConfig={{
           multiline: true,
-          value: inputValues.description,
+          value: inputs.description.value,
           onChangeText: InputChangedHandler.bind(this, "description"),
         }}
       />
       <View style={styles.btnsContainer}>
         <ProjectInput
+          inValid={!inputs.priority.isValid}
           labelText={"Priority"}
           textInputConfig={{
             placeholder: "Range: 1 to 5",
             placeholderTextColor: "black",
-            value: inputValues.priority,
+            value: inputs.priority.value,
             onChangeText: InputChangedHandler.bind(this, "priority"),
           }}
         />
         <ProjectInput
+          inValid={!inputs.date.isValid}
           labelText={"Date"}
           textInputConfig={{
             placeholder: "YYYY-MM-DD",
             placeholderTextColor: "black",
             maxLength: 10,
-            value: inputValues.date,
+            value: inputs.date.value,
             onChangeText: InputChangedHandler.bind(this, "date"),
           }}
         />
       </View>
+      {InvalidForm && (
+        <View>
+          <Text style={styles.errorTextMsg}>
+            "Hmm, looks like you missed to enter some valid data..."
+          </Text>
+        </View>
+      )}
       <View style={{ ...styles.btnsContainer, marginLeft: Spacing.xsmall }}>
         <PrimaryBtn onPress={submitProjectHandler} title={submitButtonLabel} />
         <TitleBtn onPress={onCancel} title="Cancel" />
@@ -123,5 +176,10 @@ const styles = StyleSheet.create({
   },
   btnRows: {
     minWidth: 200,
+  },
+  errorTextMsg: {
+    textAlign: "center",
+    color: "white",
+    alignItems: "center",
   },
 });

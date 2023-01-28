@@ -23,7 +23,7 @@ const AuthenticatedScreen = () => {
 const Navigation = () => {
   return (
   <NavigationContainer>
-    <LogIn />
+    <AuthScreens />
   </NavigationContainer>
   );
 };
@@ -32,7 +32,7 @@ export default function App() {
   return (
     <>
       <StatusBar />
-      <Navigation />
+      <AuthenticatedScreen />
     </>
   );
 }
